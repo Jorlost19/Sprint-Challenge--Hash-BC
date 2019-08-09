@@ -24,12 +24,21 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
+    while valid_proof(last_proof, proof) is False:
+        proof +=1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
 
+def reverse_string(string):
+    reversed = ''
+    for l in string:
+        reversed += l
+    return reversed
 
-def valid_proof(last_hash, proof):
+
+
+def valid_proof(last_proof, proof):
     """
     Validates the Proof:  Multi-ouroborus:  Do the last six characters of
     the last hash match the first six characters of the proof?
@@ -37,8 +46,11 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...999123456, new hash 123456888...
     """
 
-    # TODO: Your code here!
-    pass
+    last_hash = hashlib.sha256(str(last_proof).encode()).hexdigest()
+    reversed_hash = reverse_string(last_hash)
+    guess = hashlib.sha256(str(proof).encode()).hexdigest()
+
+    return guess[0:6] == reversed_hash[0:6]
 
 
 if __name__ == '__main__':
