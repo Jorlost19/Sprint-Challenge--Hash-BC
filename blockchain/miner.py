@@ -30,11 +30,11 @@ def proof_of_work(last_proof):
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
 
-def reverse_string(string):
-    reversed = ''
-    for l in string:
-        reversed += l
-    return reversed
+# def reverse_string(string):
+#     reversed = ''
+#     for l in string:
+#         reversed += l
+#     return reversed
 
 
 
@@ -47,10 +47,11 @@ def valid_proof(last_proof, proof):
     """
 
     last_hash = hashlib.sha256(str(last_proof).encode()).hexdigest()
-    reversed_hash = reverse_string(last_hash)
+    # reversed_hash = reverse_string(last_hash)
     guess = hashlib.sha256(str(proof).encode()).hexdigest()
 
-    return guess[0:6] == reversed_hash[0:6]
+    # return guess[0:6] == reversed_hash[0:6]
+    return guess[0:6] == last_hash[-6:0]
 
 
 if __name__ == '__main__':
